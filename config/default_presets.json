@@ -1,0 +1,140 @@
+{
+  "version": "1.0.0",
+  "presets": [
+    {
+      "id": "webflow_standard",
+      "name": "Webflow Standard",
+      "description": "Optimized for Webflow with high quality",
+      "editable": false,
+      "settings": {
+        "stills_hq": {
+          "enabled": true,
+          "format": "PNG",
+          "resolution": "source",
+          "color_space": "source"
+        },
+        "stills_web": {
+          "enabled": true,
+          "format": "JPEG",
+          "quality": 90,
+          "resolution": "source",
+          "progressive": true,
+          "optimize": true,
+          "color_space": "source"
+        },
+        "video": {
+          "enabled": true,
+          "codec": "h264",
+          "resolution": "source",
+          "crf": 20,
+          "preset": "slow",
+          "profile": "high",
+          "level": "4.1",
+          "pixel_format": "yuv420p",
+          "audio": {
+            "codec": "aac",
+            "bitrate": "320k",
+            "sample_rate": 48000
+          },
+          "fps": "source",
+          "two_pass": false
+        },
+        "thumbnails": {
+          "enabled": false
+        }
+      }
+    },
+    {
+      "id": "retina_showcase",
+      "name": "Retina/Web Showcase",
+      "description": "High quality for retina displays with size optimization",
+      "editable": false,
+      "settings": {
+        "stills_hq": {
+          "enabled": true,
+          "format": "PNG",
+          "resolution": "source",
+          "color_space": "source"
+        },
+        "stills_web": {
+          "enabled": true,
+          "format": "JPEG",
+          "quality": 90,
+          "max_width": 2560,
+          "progressive": true,
+          "optimize": true,
+          "color_space": "sRGB",
+          "subsample": "4:4:4"
+        },
+        "video": {
+          "enabled": true,
+          "codec": "h264",
+          "resolution": "1440p",
+          "max_width": 2560,
+          "max_height": 1440,
+          "crf": 19,
+          "preset": "slow",
+          "profile": "high",
+          "level": "5.1",
+          "pixel_format": "yuv420p",
+          "audio": {
+            "codec": "aac",
+            "bitrate": "320k",
+            "sample_rate": 48000
+          },
+          "fps": "source",
+          "two_pass": false
+        },
+        "thumbnails": {
+          "enabled": false
+        }
+      }
+    },
+    {
+      "id": "ultra_light",
+      "name": "Ultra-Light Web",
+      "description": "Minimal file sizes for fast loading",
+      "editable": false,
+      "settings": {
+        "stills_hq": {
+          "enabled": false
+        },
+        "stills_web": {
+          "enabled": true,
+          "format": "JPEG",
+          "quality": 82,
+          "max_width": 1600,
+          "progressive": true,
+          "optimize": true,
+          "color_space": "sRGB",
+          "subsample": "4:2:0"
+        },
+        "video": {
+          "enabled": true,
+          "codec": "h264",
+          "resolution": "1080p",
+          "max_width": 1920,
+          "max_height": 1080,
+          "crf": 23,
+          "preset": "faster",
+          "profile": "main",
+          "level": "4.0",
+          "pixel_format": "yuv420p",
+          "audio": {
+            "codec": "aac",
+            "bitrate": "192k",
+            "sample_rate": 44100
+          },
+          "fps": "source",
+          "two_pass": false
+        },
+        "thumbnails": {
+          "enabled": true,
+          "format": "JPEG",
+          "quality": 75,
+          "max_width": 400
+        }
+      }
+    }
+  ]
+}

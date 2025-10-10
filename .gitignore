@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+NUL
+
+# Project Specific
+config/state.db
+config/settings.json
+*.log
+logs/*.log
+
+# Test outputs
+test_outputs/
+temp_thumbnails/
+
+# Build
+build/
+dist/
+*.egg-info/
+*.spec
+
+# Temporary files
+*.tmp
+*.bak
+*.cache
+
+# Media files (large test assets)
+*.mov
+*.mp4
+*.avi
+*.mkv
+test_assets/*.mov
+test_assets/*.mp4
+
+# Compressed outputs (don't commit generated files)
+output/
+**/Masters/
+**/Video-clips/
+**/Stills/
+**/R&D/
