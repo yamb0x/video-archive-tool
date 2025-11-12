@@ -63,7 +63,8 @@ class ConfigManager:
             "paths": {
                 "last_output_dir": "",
                 "last_master_dir": "",
-                "last_rd_dir": ""
+                "last_rd_dir": "",
+                "last_additional_deliverables_dir": ""
             },
             "defaults": {
                 "preset": "webflow_standard",
@@ -74,6 +75,9 @@ class ConfigManager:
                 "encoding": {
                     "encoder_preference": "x264",
                     "gpu_enabled": True
+                },
+                "scene_groups": {
+                    "default_audio_enabled": False
                 }
             },
             "behavior": {
@@ -269,3 +273,21 @@ class ConfigManager:
         except Exception as e:
             self.logger.error(f"Error deleting preset: {e}")
             return False
+
+    def get_preset_by_name(self, name: str) -> Optional[Dict[str, Any]]:
+        """
+        Get preset by display name
+
+        Args:
+            name: Preset display name
+
+        Returns:
+            Preset dictionary or None if not found
+        """
+        presets = self.presets.get('presets', [])
+        for preset in presets:
+            if preset.get('name') == name:
+                return preset
+
+        self.logger.warning(f"Preset not found by name: {name}")
+        return None

@@ -1,0 +1,119 @@
+{
+  "version": "1.0.0",
+  "description": "Template coordinate configuration for Social Media Prep Tool",
+  "templates_directory": "tamplates",
+  "canvas_size": {
+    "width": 1080,
+    "height": 1350,
+    "note": "All outputs are 1080x1350 pixels (Instagram portrait format)"
+  },
+  "adjustment_guide": {
+    "how_to_measure": [
+      "1. Open template PNG file in image editor (Photoshop, GIMP, etc.)",
+      "2. Use rectangular selection tool to select the RED area",
+      "3. Note the coordinates shown in the info panel",
+      "4. Format: x (left edge), y (top edge), width, height",
+      "5. Update the values below"
+    ],
+    "coordinate_format": {
+      "x": "Distance from left edge in pixels",
+      "y": "Distance from top edge in pixels",
+      "width": "Width of content area in pixels",
+      "height": "Height of content area in pixels"
+    }
+  },
+  "templates": {
+    "full": {
+      "name": "Full Canvas",
+      "description": "Content fills entire 1080x1350 canvas",
+      "background_file": "full.png",
+      "coordinates": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1350
+      },
+      "aspect_ratio": null
+    },
+    "1-1-small": {
+      "name": "Square Small (1:1)",
+      "description": "Small centered square for portrait-style content",
+      "background_file": "1-1-small.png",
+      "coordinates": {
+        "x": 147,
+        "y": 269,
+        "width": 786,
+        "height": 786
+      },
+      "aspect_ratio": 1.0,
+      "notes": "Adjust x/y to shift position, adjust width/height to change size (keep equal for square)"
+    },
+    "1-1-large": {
+      "name": "Square Large (1:1)",
+      "description": "Large centered square for bold content",
+      "background_file": "1-1-large.png",
+      "coordinates": {
+        "x": 36,
+        "y": 158,
+        "width": 1008,
+        "height": 1008
+      },
+      "aspect_ratio": 1.0,
+      "notes": "Larger square, closer to edges. Keep width=height for perfect square."
+    },
+    "16-9": {
+      "name": "Landscape (16:9)",
+      "description": "Centered landscape for widescreen content",
+      "background_file": "16-9.png",
+      "coordinates": {
+        "x": 36,
+        "y": 389,
+        "width": 1008,
+        "height": 567
+      },
+      "aspect_ratio": 1.778,
+      "notes": "For 16:9 aspect ratio, keep width:height ratio = 16:9 (1.778)"
+    },
+    "2x-16-9": {
+      "name": "Dual Landscape (2x 16:9)",
+      "description": "Two stacked landscape areas for comparison/split content",
+      "background_file": "2x 16-9.png",
+      "dual_template": true,
+      "coordinates": {
+        "top": {
+          "x": 36,
+          "y": 82,
+          "width": 1008,
+          "height": 567
+        },
+        "bottom": {
+          "x": 36,
+          "y": 701,
+          "width": 1008,
+          "height": 567
+        }
+      },
+      "aspect_ratio": 1.778,
+      "notes": "Both zones should have same dimensions. Adjust y values to control spacing."
+    }
+  },
+  "quick_adjustments": {
+    "shift_all_left": "Decrease all 'x' values by same amount",
+    "shift_all_right": "Increase all 'x' values by same amount",
+    "shift_all_up": "Decrease all 'y' values by same amount",
+    "shift_all_down": "Increase all 'y' values by same amount",
+    "make_larger": "Increase width/height, decrease x/y by half the increase",
+    "make_smaller": "Decrease width/height, increase x/y by half the decrease",
+    "example": "To shift 16-9 template 10px right and 5px down: x=36→46, y=357→362"
+  },
+  "testing_tips": {
+    "1": "Process a test image with known content position",
+    "2": "Check if red borders are visible in output",
+    "3": "If red shows on left: increase x value",
+    "4": "If red shows on right: decrease x or increase width",
+    "5": "If red shows on top: increase y value",
+    "6": "If red shows on bottom: decrease y or increase height",
+    "7": "Make small adjustments (5-10 pixels at a time)",
+    "8": "Save this file and restart the application to apply changes"
+  }
+}

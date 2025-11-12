@@ -1,36 +1,45 @@
-# CLAUDE PROJECT RULES — ASSET PREP TOOL
+# CLAUDE PROJECT RULES - SOCIAL MEDIA CONTENT PREP
 
 ## Core Principles
-- 🧠 Always **read specification docs** in `docs/` folder before starting any new coding session.
-- 🧩 The app is **Tkinter GUI-based**, not CLI — never switch to CLI-only.
-- ⚙️ Use **ffmpeg** for all media operations (no external wrappers).
-- ⚡ Default encoder: **x264**, optional **NVENC** toggle.
-- 🧱 Folder structure and naming must always match spec in `docs/03_structure_naming.md`.
-- 🧾 Every run must produce:
-  - a `process_log.txt` file in the root
-  - all four subfolders (even if empty)
+- Read BUG_FIXES.md before modifying template positioning
+- This is a Tkinter GUI-based social media prep tool
+- Use FFmpeg for all video operations with NVENC/CPU fallback
+- Default encoder: x264, optional NVENC toggle
+- Template coordinates configurable via config/template_coordinates.json
+- All outputs must be 1080x1350 pixels (Instagram portrait format)
 
 ## Coding Standards
-- Write modular Python (split GUI, processing, config, and utils).
-- Never break portability — app must run from `run_phase2.bat`.
-- Respect `config.yaml` syncing both ways (GUI ↔ file).
-- Keep GUI hybrid-style: clean layout, collapsible advanced panels, small amount of Yambo vibe.
+- Modular Python architecture: core, processors, GUI, models, utils
+- App runs from run_social.bat for portability
+- Template coordinates loaded from JSON config file
+- Keep GUI clean and functional
 
-## Behavior Rules
-- On failure: **smart skip & log**, stop only if master file fails.
-- Always use **GPU acceleration** where possible (`-hwaccel cuda`).
-- Never convert colorspace — maintain native color.
-- Always embed EXIF/XMP metadata.
+## Template System
+- Templates define content positioning on 1080x1350 canvas
+- Center-crop algorithm maintains aspect ratios without stretching
+- Single templates: full, 1-1-small, 1-1-large, 16-9
+- Dual template: 2x-16-9 (merges two images)
+- Coordinates user-adjustable via config/template_coordinates.json
+- Template backgrounds in tamplates/ folder
 
-## Versioning
-- Follow sequential version naming: `YY-MM-DD_ArtworkName/`.
-- If existing project detected → show overwrite/version dialog.
+## Processing Behavior
+- Images: Parallel processing using ThreadPoolExecutor
+- Videos: Sequential processing with progress callbacks
+- Smart skip and log on failure, continue processing
+- GPU acceleration (NVENC) where available
+- Preserve native colorspace
+- Embed metadata where supported
 
 ## Output Consistency
-- Every still/clip must be numbered `01, 02, 03...` sequentially.
-- Aspect ratio suffix: numeric only (`-16x9`, `-9x16`, etc.).
-- Preserve preset quality values exactly as in the specs.
+- Naming: {sequence}-{projectname}_{template}_{variant}.{ext}
+- Sequential numbering: 01, 02, 03...
+- Template suffix: 16-9, 1-1-small, etc.
+- Single output folder
+- Process log for every batch
 
----
+## Auto-Template Pattern
+- Pattern: full, 16-9, 16-9, full, 16-9, 16-9... (repeating)
+- User can override individual templates
 
-☑️ **Mission:** build a reliable, artist-friendly desktop automation that preps assets perfectly for Webflow and archiving — fast, elegant, deterministic.
+## Mission
+Build a reliable desktop tool for Instagram content preparation with template-based layouts, intelligent cropping, and batch processing efficiency.

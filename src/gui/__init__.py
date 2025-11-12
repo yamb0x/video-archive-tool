@@ -1,5 +1,5 @@
 """GUI modules"""
 from .main_window import MainWindow
-from .scene_selection_window import SceneSelectionWindow
+from .main_window_social import MainWindow as SocialMainWindow
 
-__all__ = ['MainWindow', 'SceneSelectionWindow']
+__all__ = ['MainWindow', 'SocialMainWindow']

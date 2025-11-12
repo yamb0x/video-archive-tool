@@ -1,109 +1,18 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "description": "Social Media Prep Tool Presets - Optimized for 1080x1350 Instagram/Social Media",
   "presets": [
     {
-      "id": "webflow_standard",
-      "name": "Webflow Standard",
-      "description": "Optimized for Webflow with high quality",
+      "id": "instagram_high",
+      "name": "Instagram High Quality",
+      "description": "Premium quality for Instagram posts (1080x1350)",
       "editable": false,
       "settings": {
-        "stills_hq": {
-          "enabled": true,
-          "format": "PNG",
-          "resolution": "source",
-          "color_space": "source"
-        },
-        "stills_web": {
+        "output_size": "1080x1350",
+        "image": {
           "enabled": true,
           "format": "JPEG",
-          "quality": 90,
-          "resolution": "source",
-          "progressive": true,
-          "optimize": true,
-          "color_space": "source"
-        },
-        "video": {
-          "enabled": true,
-          "codec": "h264",
-          "resolution": "source",
-          "crf": 20,
-          "preset": "slow",
-          "profile": "high",
-          "level": "4.1",
-          "pixel_format": "yuv420p",
-          "audio": {
-            "codec": "aac",
-            "bitrate": "320k",
-            "sample_rate": 48000
-          },
-          "fps": "source",
-          "two_pass": false
-        },
-        "thumbnails": {
-          "enabled": false
-        }
-      }
-    },
-    {
-      "id": "retina_showcase",
-      "name": "Retina/Web Showcase",
-      "description": "High quality for retina displays with size optimization",
-      "editable": false,
-      "settings": {
-        "stills_hq": {
-          "enabled": true,
-          "format": "PNG",
-          "resolution": "source",
-          "color_space": "source"
-        },
-        "stills_web": {
-          "enabled": true,
-          "format": "JPEG",
-          "quality": 90,
-          "max_width": 2560,
-          "progressive": true,
-          "optimize": true,
-          "color_space": "sRGB",
-          "subsample": "4:4:4"
-        },
-        "video": {
-          "enabled": true,
-          "codec": "h264",
-          "resolution": "1440p",
-          "max_width": 2560,
-          "max_height": 1440,
-          "crf": 19,
-          "preset": "slow",
-          "profile": "high",
-          "level": "5.1",
-          "pixel_format": "yuv420p",
-          "audio": {
-            "codec": "aac",
-            "bitrate": "320k",
-            "sample_rate": 48000
-          },
-          "fps": "source",
-          "two_pass": false
-        },
-        "thumbnails": {
-          "enabled": false
-        }
-      }
-    },
-    {
-      "id": "ultra_light",
-      "name": "Ultra-Light Web",
-      "description": "Minimal file sizes for fast loading",
-      "editable": false,
-      "settings": {
-        "stills_hq": {
-          "enabled": false
-        },
-        "stills_web": {
-          "enabled": true,
-          "format": "JPEG",
-          "quality": 82,
-          "max_width": 1600,
+          "quality": 92,
           "progressive": true,
           "optimize": true,
           "color_space": "sRGB",
@@ -112,27 +21,168 @@
         "video": {
           "enabled": true,
           "codec": "h264",
-          "resolution": "1080p",
-          "max_width": 1920,
-          "max_height": 1080,
-          "crf": 23,
+          "bitrate": "8000k",
+          "max_bitrate": "10000k",
+          "bufsize": "16000k",
+          "preset": "slow",
+          "profile": "high",
+          "level": "4.1",
+          "pixel_format": "yuv420p",
+          "fps": 30,
+          "audio": {
+            "codec": "aac",
+            "bitrate": "192k",
+            "sample_rate": 48000,
+            "channels": "stereo"
+          },
+          "two_pass": false
+        }
+      }
+    },
+    {
+      "id": "instagram_medium",
+      "name": "Instagram Medium",
+      "description": "Balanced quality and file size for Instagram",
+      "editable": false,
+      "settings": {
+        "output_size": "1080x1350",
+        "image": {
+          "enabled": true,
+          "format": "JPEG",
+          "quality": 85,
+          "progressive": true,
+          "optimize": true,
+          "color_space": "sRGB",
+          "subsample": "4:2:0"
+        },
+        "video": {
+          "enabled": true,
+          "codec": "h264",
+          "bitrate": "5000k",
+          "max_bitrate": "6000k",
+          "bufsize": "10000k",
+          "preset": "medium",
+          "profile": "high",
+          "level": "4.0",
+          "pixel_format": "yuv420p",
+          "fps": 30,
+          "audio": {
+            "codec": "aac",
+            "bitrate": "128k",
+            "sample_rate": 44100,
+            "channels": "stereo"
+          },
+          "two_pass": false
+        }
+      }
+    },
+    {
+      "id": "instagram_fast",
+      "name": "Instagram Fast/Light",
+      "description": "Quick processing with smaller file sizes",
+      "editable": false,
+      "settings": {
+        "output_size": "1080x1350",
+        "image": {
+          "enabled": true,
+          "format": "JPEG",
+          "quality": 80,
+          "progressive": true,
+          "optimize": true,
+          "color_space": "sRGB",
+          "subsample": "4:2:0"
+        },
+        "video": {
+          "enabled": true,
+          "codec": "h264",
+          "bitrate": "3500k",
+          "max_bitrate": "4000k",
+          "bufsize": "7000k",
           "preset": "faster",
           "profile": "main",
           "level": "4.0",
           "pixel_format": "yuv420p",
+          "fps": 30,
+          "audio": {
+            "codec": "aac",
+            "bitrate": "96k",
+            "sample_rate": 44100,
+            "channels": "stereo"
+          },
+          "two_pass": false
+        }
+      }
+    },
+    {
+      "id": "social_ultra_hq",
+      "name": "Social Media Ultra HQ",
+      "description": "Maximum quality for premium social content",
+      "editable": false,
+      "settings": {
+        "output_size": "1080x1350",
+        "image": {
+          "enabled": true,
+          "format": "PNG",
+          "quality": 95,
+          "progressive": false,
+          "optimize": true,
+          "color_space": "sRGB"
+        },
+        "video": {
+          "enabled": true,
+          "codec": "h264",
+          "bitrate": "12000k",
+          "max_bitrate": "15000k",
+          "bufsize": "24000k",
+          "preset": "veryslow",
+          "profile": "high",
+          "level": "5.0",
+          "pixel_format": "yuv420p",
+          "fps": 30,
+          "audio": {
+            "codec": "aac",
+            "bitrate": "256k",
+            "sample_rate": 48000,
+            "channels": "stereo"
+          },
+          "two_pass": true
+        }
+      }
+    },
+    {
+      "id": "gpu_instagram_high",
+      "name": "Instagram High (GPU)",
+      "description": "GPU-accelerated high quality encoding",
+      "editable": false,
+      "settings": {
+        "output_size": "1080x1350",
+        "image": {
+          "enabled": true,
+          "format": "JPEG",
+          "quality": 92,
+          "progressive": true,
+          "optimize": true,
+          "color_space": "sRGB",
+          "subsample": "4:2:0"
+        },
+        "video": {
+          "enabled": true,
+          "codec": "h264_nvenc",
+          "bitrate": "8000k",
+          "max_bitrate": "10000k",
+          "bufsize": "16000k",
+          "preset": "p7",
+          "profile": "high",
+          "pixel_format": "yuv420p",
+          "fps": 30,
+          "gpu_acceleration": true,
           "audio": {
             "codec": "aac",
             "bitrate": "192k",
-            "sample_rate": 44100
+            "sample_rate": 48000,
+            "channels": "stereo"
           },
-          "fps": "source",
           "two_pass": false
-        },
-        "thumbnails": {
-          "enabled": true,
-          "format": "JPEG",
-          "quality": 75,
-          "max_width": 400
         }
       }
     }

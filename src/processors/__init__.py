@@ -1,6 +1,6 @@
 """Processor modules for specialized operations"""
-from .scene_detector import SceneDetector, Scene
 from .image_processor import ImageProcessor
-from .video_clip_generator import VideoClipGenerator
+from .template_compositor import TemplateCompositor
+from .batch_processor import BatchProcessor
 
-__all__ = ['SceneDetector', 'Scene', 'ImageProcessor', 'VideoClipGenerator']
+__all__ = ['ImageProcessor', 'TemplateCompositor', 'BatchProcessor']

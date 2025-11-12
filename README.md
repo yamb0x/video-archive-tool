@@ -1,264 +1,135 @@
-# Video Archive Tool
-*Yambo Studio - Professional Video Processing & Archive Automation*
+# Social Media Content Prep
 
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
-[![Phase 2](https://img.shields.io/badge/phase-2%20%E2%80%93%20Scene%20Detection-green.svg)](docs/)
-
-## Overview
-A desktop automation tool for preparing video assets for Webflow upload and intelligent project archiving. Optimized for creative studios working with ProRes master videos.
-
-**Current Status**: Phase 2 - Full scene detection, still extraction, and video clip generation
-
-## Features
-- **ProRes Master Processing**: Validate and optimize ProRes 422/4444 videos
-- **Automatic Scene Detection**: Detect cuts with adjustable sensitivity
-- **Smart Asset Generation**:
-  - High-quality PNG stills for archiving
-  - Web-optimized JPEG stills for Webflow
-  - H.264 video clips with scene grouping
-- **R&D Folder Processing**: Batch process reference materials
-- **GPU Acceleration**: NVIDIA CUDA support with automatic CPU fallback
-- **Resume Capability**: Continue interrupted processing sessions
-- **Metadata Embedding**: Copyright and processing information
+Professional media formatting tool for Instagram and social platforms. Transform images and videos into 1080x1350 format with template-based layouts and intelligent compression.
 
 ## Quick Start
 
-### Installation
 ```bash
 # Clone repository
-git clone https://github.com/yamb0x/video-archive-tool.git
-cd video-archive-tool
-
-# Create virtual environment
-python -m venv venv
-
-# Activate virtual environment
-venv\Scripts\activate  # Windows
-# source venv/bin/activate  # macOS/Linux
+git clone https://github.com/yamb0x/social-media-content-prep.git
+cd social-media-content-prep
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Run Phase 2 application
-run_phase2.bat  # Windows
-# python src/main_phase2.py  # Direct Python
+# Launch application
+python src/main_social.py
 ```
 
-### System Requirements
-- **Python**: 3.11 or higher
-- **OS**: Windows 10/11 (64-bit) | macOS 10.15+ | Linux
-- **FFmpeg**: 4.4+ (automatically detected or manual installation)
-- **GPU**: NVIDIA RTX series (optional, for NVENC acceleration)
-- **RAM**: 8GB minimum, 16GB recommended
-- **Storage**: 2x the size of your largest video file
+**Windows**: Double-click `run_social.bat`
 
-### Required Dependencies
-- OpenCV (4.8.1+)
-- PySceneDetect (0.6.2+)
-- Pillow (10.1.0+)
-- tkinter (included with Python)
+## Features
 
-## Usage
+- Template-based layouts for 1080x1350 Instagram format
+- Smart center-crop algorithm maintains aspect ratios
+- Batch processing with file reordering
+- GPU-accelerated encoding (NVENC) with CPU fallback
+- Project-based naming with sequential numbering
+- Parallel image processing for speed
+- Professional compression presets
 
-### Basic Workflow
-1. **Launch**: Run `run_phase2.bat` or `python src/main_phase2.py`
-2. **Set Project**: Enter artwork name and date (format: YY-MM-DD)
-3. **Select Master**: Choose your video file (ProRes recommended)
-4. **Configure Settings**:
-   - Choose encoder (x264 or NVENC)
-   - Adjust scene detection threshold
-   - Set minimum scene length
-5. **Process**: Click "Process Video"
-6. **Scene Selection**:
-   - Review auto-detected scenes with thumbnails
-   - Select individual scenes for clips
-   - Group multiple scenes into combined clips
-   - Deselect scenes you don't want as clips
-7. **Wait for Processing**:
-   - Video clips generated from selected scenes
-   - PNG stills extracted from ALL detected scenes
-   - JPEG stills compressed for web
-8. **Complete**: Review outputs in organized folder structure
+## Templates
 
-### Output Structure
-```
-YY-MM-DD_ArtworkName/
-├── Masters/              # Original + optimized master video
-│   ├── [ArtworkName]_master_[ext]      # Original master copy
-│   └── [ArtworkName]_master.mp4        # Optimized MP4 master
-├── Video-clips/          # Scene-based video clips
-│   ├── [ArtworkName]_clip_01.mp4       # Individual scene clips
-│   ├── [ArtworkName]_clip_02.mp4
-│   └── [ArtworkName]_group_01.mp4      # Grouped scene clips
-└── Stills/
-    ├── HQ/              # High-quality PNG stills (ALL scenes)
-    │   ├── [ArtworkName]_01.png
-    │   ├── [ArtworkName]_02.png
-    │   └── ...
-    └── Compressed/      # Web-optimized JPEG (ALL scenes)
-        ├── [ArtworkName]_01.jpg
-        ├── [ArtworkName]_02.jpg
-        └── ...
-```
+All outputs are 1080x1350 pixels with configurable content positioning:
 
-**Note**: Stills are extracted from ALL detected scenes, while video clips are only created from selected scenes.
+**Full Canvas** - Content fills entire canvas
+**Square Small (1:1)** - Centered 786x786 square
+**Square Large (1:1)** - Centered 1008x1008 square
+**Landscape (16:9)** - Centered 1008x567 widescreen
+**Dual Landscape (2x 16:9)** - Two stacked 1008x567 areas
 
-### Compression Presets
+Template coordinates are editable via `config/template_coordinates.json` for pixel-perfect alignment.
 
-#### Webflow Standard
-- **Best for**: General Webflow projects
-- **Quality**: High (CRF 20)
-- **Resolution**: Source
+## Workflow
 
-#### Retina/Web Showcase
-- **Best for**: High-end portfolios
-- **Quality**: Very High (CRF 19)
-- **Resolution**: Up to 1440p
+1. Enter project name
+2. Load folder containing images/videos
+3. Reorder files using up/down buttons
+4. Assign templates (or use auto-template)
+5. Select compression preset
+6. Choose output folder and process
 
-#### Ultra-Light Web
-- **Best for**: Fast loading pages
-- **Quality**: Good (CRF 23)
-- **Resolution**: Up to 1080p
+Output naming: `{sequence}-{projectname}_{template}_{variant}.{ext}`
 
-## Advanced Features
+Example: `1-brandlaunch_16-9_01.mp4`
 
-### Scene Detection
-- **Adaptive Detection**: Uses PySceneDetect with content-aware algorithms
-- **Adjustable Threshold**: 0.0-1.0 sensitivity control (default: 0.3)
-- **Minimum Scene Length**: Prevent micro-scenes (default: 1.0s)
-- **Interactive Selection**: Visual thumbnail-based scene picker
-- **Scene Grouping**: Combine multiple scenes into single clips
-- **Smart Extraction**: Midpoint frame extraction for representative stills
+## Presets
 
-### GPU Acceleration
-- **Automatic Detection**: NVIDIA GPU auto-detection on startup
-- **NVENC Encoding**: Hardware-accelerated H.264 encoding
-- **CPU Fallback**: Seamless x264 software encoding
-- **Encoder Toggle**: Switch between GPU/CPU per project
-- **Performance**: 3-5x faster encoding with NVENC
+**Instagram High Quality** - 8Mbps video, 92% JPEG
+**Instagram Medium** - 5Mbps video, 85% JPEG
+**Instagram Fast** - 3.5Mbps video, 80% JPEG
+**Social Media Ultra HQ** - 12Mbps video, PNG images
+**Instagram High (GPU)** - NVENC hardware acceleration
 
-### Metadata Embedding
-- **Copyright**: Embedded in all outputs
-- **XMP/EXIF**: PNG and JPEG metadata
-- **Project Info**: Artwork name, date, source file
-- **Processing Data**: Encoder, settings, timestamps
+## System Requirements
 
-### Session Management
-- **SQLite Database**: Persistent state tracking
-- **Progress Monitoring**: Real-time operation tracking
-- **Session History**: View past processing sessions
-- **Resume Capability**: (Planned for Phase 4)
+- Python 3.8+
+- FFmpeg 4.4+ (included or in PATH)
+- Windows 10/11, macOS 10.15+, or Linux
+- Optional: NVIDIA GPU with NVENC for hardware acceleration
 
-## Development
+## Template Customization
 
-### Running from Source
-```bash
-# Development mode (Phase 2)
-python src/main_phase2.py
+Edit `config/template_coordinates.json` to adjust content positioning:
 
-# Or use the batch file
-run_phase2.bat
-
-# Run Phase 1 (basic testing)
-python src/main.py
-
-# Run tests
-pytest tests/
+```json
+{
+  "templates": {
+    "16-9": {
+      "coordinates": {
+        "x": 36,
+        "y": 389,
+        "width": 1008,
+        "height": 567
+      }
+    }
+  }
+}
 ```
 
-### Development Roadmap
+Restart application to apply changes.
 
-#### ✅ Phase 1: Core Foundation (Completed)
-- Master video validation
-- Output folder structure
-- Basic FFmpeg integration
-- Configuration management
+## Project Structure
 
-#### ✅ Phase 2: Scene Detection & Processing (Completed)
-- Automatic scene detection with PySceneDetect
-- Interactive scene selection GUI
-- High-quality PNG still extraction (ALL scenes)
-- Web-optimized JPEG compression (ALL scenes)
-- H.264 video clip generation (selected scenes)
-- Scene grouping and concatenation
-- Metadata embedding (XMP/EXIF)
-
-#### 🔄 Phase 3: R&D Folder Processing (In Progress)
-- Batch image processing
-- Smart image categorization
-- Multi-resolution output
-- Metadata preservation
-
-#### 📋 Phase 4: Advanced Features (Planned)
-- Session resume capability
-- Preset management UI
-- Batch project processing
-- Progress reporting improvements
-
-#### 🚀 Phase 5: Distribution (Planned)
-- PyInstaller executable bundling
-- Installer creation
-- Auto-update mechanism
-- Error reporting system
-
-### Project Structure
 ```
-video-archive-tool/
-├── src/              # Source code
-│   ├── core/        # Core processing
-│   ├── gui/         # User interface
-│   ├── processors/  # Video/image processors
-│   └── database/    # State management
-├── config/          # Configuration files
-├── tests/           # Test suite
-└── docs/            # Documentation
+social-media-content-prep/
+├── src/
+│   ├── core/              # Template manager, media scanner, FFmpeg wrapper
+│   ├── gui/               # Main window interface
+│   ├── models/            # Media file data model
+│   ├── processors/        # Template compositor, batch processor
+│   └── utils/             # Configuration, logging
+├── config/
+│   ├── template_coordinates.json
+│   └── default_presets.json
+├── tamplates/             # Template background images
+└── run_social.bat         # Windows launcher
 ```
 
 ## Configuration
 
-### Settings Location
-`App/config/settings.json`
+Settings are stored in `config/default_presets.json` and `config/template_coordinates.json`.
 
-### Key Settings
-- `scene_threshold`: Detection sensitivity (1-100)
-- `encoder_preference`: "x264" or "nvenc"
-- `copyright_text`: Embedded metadata
-- `parallel_workers`: Processing threads
+Key configurations:
+- Video codecs (h264, h264_nvenc)
+- Image quality and formats
+- Template positioning coordinates
+- Encoding presets
 
 ## Troubleshooting
 
-### Common Issues
+**FFmpeg not found**: Install FFmpeg from ffmpeg.org or place in App/ffmpeg/
 
-#### "FFmpeg not found"
-- Ensure `App/ffmpeg/` contains ffmpeg.exe
-- Download from [FFmpeg.org](https://ffmpeg.org)
+**NVENC not available**: Requires NVIDIA GPU with updated drivers, will fallback to CPU encoding
 
-#### "GPU acceleration unavailable"
-- Check NVIDIA driver is updated
-- Verify CUDA support
-- Tool will automatically use CPU
+**Template alignment issues**: Adjust coordinates in template_coordinates.json using image editor measurements
 
-#### "ProRes file not valid"
-- Ensure file is genuine ProRes
-- Check file isn't corrupted
-- Try different ProRes variant
-
-## Support
-- **Documentation**: See `/docs` folder
-- **Issues**: Report bugs on GitHub
-- **Contact**: support@yambo.studio
+**Processing failures**: Check process_log.txt in output folder for detailed error information
 
 ## License
+
 © 2024 Yambo Studio. All rights reserved.
 
 ## Credits
-- **FFmpeg**: Video processing engine
-- **PySceneDetect**: Scene detection
-- **OpenCV**: Image processing
-- **NVIDIA CUDA**: GPU acceleration
 
----
-
-*Version 2.0.0 - Phase 2 (Scene Detection) - October 2025*
-*Built with ❤️ by Yambo Studio*
+Built with FFmpeg, Pillow, and OpenCV.

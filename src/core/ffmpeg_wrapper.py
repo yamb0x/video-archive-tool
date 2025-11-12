@@ -301,9 +301,12 @@ class FFmpegWrapper:
         # Extract single frame
         cmd.extend(["-frames:v", "1"])
 
-        # High quality PNG encoding
-        # PNG naturally preserves color, no need for filters
+        # High quality PNG encoding with fast compression
         cmd.extend(["-compression_level", "0"])  # Fast compression for extraction speed
+
+        # Explicitly set pixel format to avoid color conversion issues in FFmpeg 8.0
+        # rgb24 preserves color accurately and avoids the out_color_matrix=-1 bug
+        cmd.extend(["-pix_fmt", "rgb24"])
 
         # Output
         cmd.extend(["-y", output_path])
@@ -314,42 +317,82 @@ class FFmpegWrapper:
         self,
         cmd: List[str],
         capture_output: bool = True,
-        timeout: Optional[int] = None
-    ) -> subprocess.CompletedProcess:
+        timeout: Optional[int] = None,
+        progress_callback=None
+    ):
         """
-        Run FFmpeg command
+        Run FFmpeg command with optional progress tracking
 
         Args:
             cmd: Command list
             capture_output: Capture stdout/stderr
             timeout: Timeout in seconds
+            progress_callback: Optional callback(percent) for progress updates
 
         Returns:
-            CompletedProcess result
+            Tuple of (success: bool, error_message: str or None)
         """
         self.logger.debug(f"Running command: {' '.join(cmd)}")
 
         try:
-            result = subprocess.run(
-                cmd,
-                capture_output=capture_output,
-                text=True,
-                timeout=timeout,
-                check=False
-            )
+            if progress_callback:
+                # Run with progress tracking (requires parsing stderr)
+                process = subprocess.Popen(
+                    cmd,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    universal_newlines=True
+                )
 
-            if result.returncode != 0:
-                self.logger.error(f"FFmpeg error (code {result.returncode}): {result.stderr}")
+                # Parse FFmpeg progress from stderr
+                for line in process.stderr:
+                    if progress_callback and 'time=' in line:
+                        # Extract progress (this is a simple implementation)
+                        # For accurate progress, we'd need to know the total duration
+                        # For now, just call the callback
+                        try:
+                            # Parse time=HH:MM:SS.MS
+                            time_str = line.split('time=')[1].split()[0]
+                            # Simple progress indication
+                            progress_callback(0)  # Placeholder
+                        except:
+                            pass
+
+                process.wait(timeout=timeout)
+
+                if process.returncode != 0:
+                    error_msg = f"FFmpeg error (code {process.returncode})"
+                    self.logger.error(error_msg)
+                    return False, error_msg
+                else:
+                    self.logger.debug("FFmpeg command succeeded")
+                    return True, None
             else:
-                self.logger.debug("FFmpeg command succeeded")
+                # Simple execution without progress
+                result = subprocess.run(
+                    cmd,
+                    capture_output=capture_output,
+                    text=True,
+                    timeout=timeout,
+                    check=False
+                )
 
-            return result
+                if result.returncode != 0:
+                    error_msg = f"FFmpeg error (code {result.returncode}): {result.stderr}"
+                    self.logger.error(error_msg)
+                    return False, error_msg
+                else:
+                    self.logger.debug("FFmpeg command succeeded")
+                    return True, None
+
         except subprocess.TimeoutExpired:
-            self.logger.error(f"FFmpeg command timed out after {timeout}s")
-            raise
+            error_msg = f"FFmpeg command timed out after {timeout}s"
+            self.logger.error(error_msg)
+            return False, error_msg
         except Exception as e:
-            self.logger.error(f"Error running FFmpeg: {e}")
-            raise
+            error_msg = f"Error running FFmpeg: {str(e)}"
+            self.logger.error(error_msg)
+            return False, error_msg
 
     def get_encoder_type(self) -> str:
         """Get the encoder type that will be used"""

@@ -59,3 +59,6 @@ output/
 **/Video-clips/
 **/Stills/
 **/R&D/
+
+# FFmpeg binaries (large, user should download)
+App/ffmpeg/
